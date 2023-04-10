@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragments.ViewArticleFragment">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/babar"
+        android:contentDescription="@string/todo" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/babar"
+        android:padding="20dp"
+        android:paddingBottom="0dp"
+        android:textColor="@color/blue"
+        android:textSize="30sp"
+        android:fontFamily="@font/josefin_sans_bold"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="ScrollViewCount">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/babrdesc"
+            android:padding="20dp"
+            android:textColor="@color/grey"
+            android:textSize="20sp"
+            android:fontFamily="@font/josefin_sans_bold"/>
+
+    </ScrollView>
+
+
+
+</LinearLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="160dp"
+    android:orientation="horizontal"
+    android:layout_height="50dp">
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:background="@drawable/radioselecter"
+        android:id="@+id/tvCategory"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/blue"
+        android:layout_margin="10dp"
+        android:textSize="25dp"
+        android:textAlignment="center"
+        android:fontFamily="@font/josefin_sans_bold"
+        />
+
+</LinearLayout>

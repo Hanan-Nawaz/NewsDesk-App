@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/Home"
+        android:icon="@drawable/home_icon"
+        android:title="@string/Home" />
+
+    <item
+        android:id="@+id/AddArticle"
+        android:icon="@drawable/addarticle_icon"
+        android:title="@string/AddArticle" />
+
+    <item
+        android:id="@+id/Profile"
+        android:icon="@drawable/profile_icon"
+        android:title="@string/Profile" />
+
+    <item
+        android:id="@+id/ViewArticles"
+        android:icon="@drawable/view_icon"
+        android:title="@string/ViewArticles" />
+
+    <item
+        android:id="@+id/Login"
+        android:icon="@drawable/login_icon"
+        android:title="@string/Login" />
+
+    <item
+        android:id="@+id/Logout"
+        android:icon="@drawable/logout_icon"
+        android:title="@string/Logout" />
+
+    <item
+        android:id="@+id/Exit"
+        android:icon="@drawable/logout_icon"
+        android:title="@string/Exit" />
+</menu>
