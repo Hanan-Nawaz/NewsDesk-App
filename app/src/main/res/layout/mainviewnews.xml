@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
-                android:src="@drawable/hanan" />
+                 />
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -37,8 +37,9 @@
                 android:layout_marginBottom="55dp"
                 android:gravity="bottom"
                 android:textSize="20sp"
+                android:textFontWeight="900"
                 android:paddingLeft="20dp"
-                android:text="Hello"
+                android:text="No Data Found!!!"
                 android:fontFamily="@font/josefin_sans_bold"
                 android:textColor="@color/white" />
 

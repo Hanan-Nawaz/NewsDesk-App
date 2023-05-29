@@ -13,7 +13,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -25,11 +27,15 @@ import com.example.newsdesk.Fragments.Home_Fragment;
 import com.example.newsdesk.Fragments.Login_Fragment;
 import com.example.newsdesk.Fragments.Profile_Fragment;
 import com.example.newsdesk.Fragments.ViewArticles_Fragment;
+import com.example.newsdesk.Fragments.topHeadlines;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
+
+    SharedPreferences preferences;
+
 
     Toolbar toolbar;
     DrawerLayout drawerLayout;
@@ -51,6 +57,23 @@ public class HomeActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)
                     .add(R.id.Main, Home).commit();
+
+        }
+
+        preferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+
+        boolean isUserLoggedIn = preferences.getBoolean("isUserLogin", false);
+
+        if (isUserLoggedIn) {
+            navigationView.getMenu().findItem(R.id.AddArticle).setVisible(true);
+            navigationView.getMenu().findItem(R.id.ViewArticles).setVisible(true);
+            navigationView.getMenu().findItem(R.id.Profile).setVisible(true);
+            navigationView.getMenu().findItem(R.id.Login).setVisible(false);
+        } else {
+            navigationView.getMenu().findItem(R.id.AddArticle).setVisible(false);
+            navigationView.getMenu().findItem(R.id.ViewArticles).setVisible(false);
+            navigationView.getMenu().findItem(R.id.Profile).setVisible(false);
+            navigationView.getMenu().findItem(R.id.Login).setVisible(true);
         }
 
         setSupportActionBar(toolbar);
@@ -69,6 +92,12 @@ public class HomeActivity extends AppCompatActivity {
                 {
                     case R.id.Home:{
                         ChangeFragment(new Home_Fragment());
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                    }
+
+                    case R.id.topHeadlines:{
+                        ChangeFragment(new topHeadlines());
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     }
@@ -95,6 +124,15 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     }
                     case R.id.Logout:{
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.remove("name");
+                        editor.remove("password");
+                        editor.remove("email");
+                        editor.remove("address");
+                        editor.remove("image");
+                        editor.remove("title");
+                        editor.remove("isUserLogin");
+                        editor.apply();
                         Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
                         startActivity(intent);
                         break;

@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
         android:id="@+id/Home"
         android:icon="@drawable/home_icon"
         android:title="@string/Home" />
+
+    <item
+        android:id="@+id/topHeadlines"
+        android:icon="@drawable/home_icon"
+        android:title="@string/topHeadlines" />
 
     <item
         android:id="@+id/AddArticle"

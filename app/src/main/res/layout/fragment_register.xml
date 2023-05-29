@@ -17,44 +17,24 @@
         android:background="@drawable/background"
         android:textSize="35sp"
         android:paddingTop="10dp"
-        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
         android:textColor="@color/white"
         android:fontFamily="@font/josefin_sans_bold" />
 
-    <RadioGroup
+    <EditText
+        android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_weight="1"
-        >
-
-        <RadioButton
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/radioselecter"
-            android:textAlignment="center"
-            android:text="@string/Male"
-            android:textSize="30sp"
-            android:button="@drawable/male_icon"
-            android:fontFamily="@font/josefin_sans_bold"
-            />
-
-        <RadioButton
-            android:layout_width="150dp"
-            android:layout_marginLeft="20dp"
-            android:button="@drawable/female_icon"
-            android:textAlignment="center"
-            android:background="@drawable/radioselecter"
-            android:layout_height="match_parent"
-            android:text="@string/Female"
-            android:textSize="30sp"
-            android:fontFamily="@font/josefin_sans_bold"
-            />
-
-    </RadioGroup>
+        android:layout_weight=".8"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:inputType="textEmailAddress"
+        android:paddingStart="10dp"
+        android:background="@drawable/borderbottom"
+        android:fontFamily="@font/josefin_sans_bold"
+        android:hint="@string/Name"
+        tools:ignore="RtlSymmetry" />
 
     <EditText
         android:id="@+id/etEmail"
@@ -69,7 +49,7 @@
         android:background="@drawable/borderbottom"
         android:fontFamily="@font/josefin_sans_bold"
         android:hint="@string/Email"
-        />
+        tools:ignore="RtlSymmetry" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -84,7 +64,7 @@
         android:background="@drawable/borderbottom"
         android:fontFamily="@font/josefin_sans_bold"
         android:inputType="textPassword"
-        />
+        tools:ignore="RtlSymmetry" />
 
     <EditText
         android:id="@+id/etAddress"
@@ -99,7 +79,7 @@
         android:background="@drawable/borderbottom"
         android:fontFamily="@font/josefin_sans_bold"
         android:inputType="textMultiLine"
-        />
+        tools:ignore="RtlSymmetry" />
 
     <Button
         android:id="@+id/btnRegister"

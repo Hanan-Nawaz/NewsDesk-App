@@ -1,14 +1,18 @@
 package com.example.newsdesk.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.newsdesk.Classes.Category;
 import com.example.newsdesk.Classes.CategoryAdapterClass;
@@ -16,11 +20,19 @@ import com.example.newsdesk.Classes.NewsAdapterClass;
 import com.example.newsdesk.Classes.NewsArticles;
 import com.example.newsdesk.Classes.ViewArticlesAdapterClass;
 import com.example.newsdesk.R;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ViewArticles_Fragment extends Fragment {
-
+    String email;
+    ProgressBar pBar;
+    SharedPreferences preferences;
     RecyclerView ViewArticlesRV;
     ArrayList<NewsArticles> newsArticlesArrayList ;
     ViewArticlesAdapterClass newsAdapterClass;
@@ -32,18 +44,39 @@ public class ViewArticles_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_view_articles_, container, false);
 
         ViewArticlesRV = view.findViewById(R.id.RVArticles);
+        pBar = view.findViewById(R.id.pbar);
         ViewArticlesRV.setLayoutManager(new LinearLayoutManager(getContext()));
 
         newsArticlesArrayList = new ArrayList <>();
 
-        NewsArticles newsArticles = new NewsArticles("https://wallpapercave.com/wp/wp4251167.jpg", "Babar Azam Scores Century", "Mohammad Babar Azam, is a Pakistani international cricketer and captain of the Pakistan national cricket team in all formats. Regarded as one of the finest batters in contemporary world cricket, he is the only cricketer in the world to be in the top five rankings across all formats.");
-        NewsArticles newsArticles1 = new NewsArticles("https://i.pinimg.com/originals/fb/6c/90/fb6c90c64e6de472af56a78eafbfdf9e.jpg", "Babar the King", "");
-        NewsArticles newsArticles2 = new NewsArticles("https://media.istockphoto.com/id/458685027/photo/german-total-gas-station-sign.jpg?s=1024x1024&w=is&k=20&c=IluENr-Bxhce-ko7SKu4dif_yxnirC9Psl5QmRJ5_8U=", "No hike in Fuel prices till 15th April says Spokes person Govt. of Pakistan", "");
-        newsArticlesArrayList.add(newsArticles);
-        newsArticlesArrayList.add(newsArticles1);
-        newsArticlesArrayList.add(newsArticles2);
+        preferences = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
 
-        newsAdapterClass = new ViewArticlesAdapterClass(newsArticlesArrayList);
+        email = preferences.getString("email", "admin@newsdesk.com");
+
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference colRef = db.collection("Articles");
+        colRef.get().addOnSuccessListener(new OnSuccessListener < QuerySnapshot >() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List < DocumentSnapshot > documentSnapshotArrayList = queryDocumentSnapshots.getDocuments();
+
+                for(DocumentSnapshot d : documentSnapshotArrayList){
+                    NewsArticles insert = d.toObject(NewsArticles.class);
+                    newsArticlesArrayList.add(insert);
+                }
+                newsAdapterClass.notifyDataSetChanged();
+            }
+        });
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                pBar.setVisibility(View.GONE);
+            }
+        }, 10000);
+
+        newsAdapterClass = new ViewArticlesAdapterClass(newsArticlesArrayList, email);
         ViewArticlesRV.setAdapter(newsAdapterClass);
 
         return view;

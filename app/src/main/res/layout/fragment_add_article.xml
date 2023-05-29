@@ -56,6 +56,21 @@
         android:inputType="textMultiLine"
         />
 
+    <Spinner
+        android:id="@+id/spCategory"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".8"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:inputType="text"
+        android:paddingStart="10dp"
+        android:background="@drawable/borderbottom"
+        android:fontFamily="@font/josefin_sans_bold"
+        android:hint="@string/Category"
+        />
+
     <Button
         android:id="@+id/btnImageUpload"
         android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package com.example.newsdesk.Classes;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +20,17 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class NewsAdapterClass extends RecyclerView.Adapter<NewsAdapterClass.ViewHolder>{
 
     ArrayList<NewsArticles> newsArticles;
+    String Category;
 
 
-    public NewsAdapterClass(ArrayList<NewsArticles> newsArticles) {
+    public NewsAdapterClass(ArrayList<NewsArticles> newsArticles, String Category) {
         this.newsArticles = newsArticles;
+        this.Category = Category;
     }
 
 
@@ -42,27 +46,39 @@ public class NewsAdapterClass extends RecyclerView.Adapter<NewsAdapterClass.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         NewsArticles newsArticle = newsArticles.get(position);
 
-        holder.Title.setText(newsArticle.getName());
+        if(Objects.equals(newsArticle.getCategoies(), Category)){
+            holder.Title.setText(newsArticle.getName());
 
-        URL newurl = null;
-        try {
-            newurl = new URL(newsArticle.getImages());
-            Bitmap bitmap = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-            holder.NewsLogoIV.setImageBitmap(bitmap);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            URL newurl = null;
+            try {
+                newurl = new URL(newsArticle.getImages());
+                Bitmap bitmap = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+                holder.NewsLogoIV.setImageBitmap(bitmap);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            holder.NewsLogoIV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AppCompatActivity appCompatActivity = (AppCompatActivity) view.getContext();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Title", newsArticle.getName());
+                    bundle.putString("Body", newsArticle.getBody());
+                    bundle.putString("Image", newsArticle.getImages());
+                    ViewArticleFragment articleFragment = new ViewArticleFragment();
+                    articleFragment.setArguments(bundle);
+                    appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.Main, articleFragment).addToBackStack(null).commit();
+                }
+            });
+        }
+        else{
+
         }
 
-        holder.NewsLogoIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AppCompatActivity appCompatActivity = (AppCompatActivity) view.getContext();
-                ViewArticleFragment articleFragment = new ViewArticleFragment();
-                appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.Main, articleFragment).addToBackStack(null).commit();
-            }
-        });
+
 
     }
 
